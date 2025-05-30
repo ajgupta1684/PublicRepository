@@ -1,0 +1,15 @@
+from google.cloud import bigquery
+import pandas  as pd
+
+client = bigquery.Client()
+
+sql= "Select * from `dde-ops-dbt-d001.dbt_Ajay.Cars`"
+# dml_sql= "Update `dde-ops-dbt-d001.dbt_Ajay.Cars` set model = '2122' where year_make = 2122"
+dml_sql= "Delete from `dde-ops-dbt-d001.dbt_Ajay.Cars` where year_make is null"
+
+
+query_job = client.query(dml_sql)
+query_job.result()
+
+
+ds1= client.query(sql).to_dataframe()
